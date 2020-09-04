@@ -44,7 +44,7 @@ def main():
     guessedCharacters = set()
     print(f"Ik heb een woord in gedachten van {len(word)} letters", end="\n"*2)
     while moves > 0:
-        print(f"\t{formatWord(word, guessedCharacters)}\nJe kunt nog {moves} keer raden")
+        print(f"\n\t{formatWord(word, guessedCharacters)}\nJe kunt nog {moves} keer raden")
         guess = input("Raad een letter of woord: ").lower()
         if len(guess) > 1:
             # als de gok langer is dan 1 letter is het automatisch een gok voor een woord
@@ -60,13 +60,8 @@ def main():
                 continue # ga naar de volgende ronde zonder een beurt af te trekken
             else:
                 guessedCharacters.add(guess)
-                if guess in word:
-                    print("gert")
-                else:
-                    print("niet gert")
-
+                print(f"De letter {guess} zit{' niet' if not guess in word else ''} in mijn woord")
         moves -= 1
-        print("\n") # witregel
     endSequence()
 
 if __name__ == "__main__":
