@@ -11,6 +11,7 @@ def loadWords(): # laad woorden uit de ./words map en voeg ze toe aan een dictio
 
 def wordFilter(word): # laat alleen woorden toe zonder leestekens, en die langer dan 2 letters zijn
     if(len(word) <= 1): return False
+    if(len(word) >= 8): return False
     filtered = re.search(r"[0-9\'\"\.\-\s]", word)
     return filtered == None
 
@@ -18,8 +19,11 @@ def getRandomWord(wordList):
     wordList = list(filter(wordFilter, wordList))
     return random.choice(wordList)
 
-def endSequence():
-    print("Dat was hem weer jongens")
+def endSequence(word, won):
+    if not won:
+        print(f"Het woord was {word}")
+    else:
+        print("Dat was hem weer jongens")
 
 def formatWord(word, guessed): # maak van een woord en geraden letters een woord met streepjes
     out = ""
@@ -49,11 +53,11 @@ def main():
         if len(guess) > 1:
             # als de gok langer is dan 1 letter is het automatisch een gok voor een woord
             if word == guess:
-                endSequence()
+                endSequence(word, True)
                 break
             else:
                 print("Dat is niet mijn woord!")
-        else:
+        elif len(guess) == 1:
             # gok voor een letter
             if guess in guessedCharacters:
                 print(f"De letter {guess} heb je al geraden")
@@ -61,8 +65,12 @@ def main():
             else:
                 guessedCharacters.add(guess)
                 print(f"De letter {guess} zit{' niet' if not guess in word else ''} in mijn woord")
+        else:
+            # geen antwoord
+            print("Je moet wel een letter of woord gokken")
+            continue
         moves -= 1
-    endSequence()
+    endSequence(word, False)
 
 if __name__ == "__main__":
     main()
