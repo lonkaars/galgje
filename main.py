@@ -48,7 +48,7 @@ def main():
     guessedCharacters = set()
     print(f"Ik heb een woord in gedachten van {len(word)} letters", end="\n"*2)
     while moves > 0:
-        print(f"\n\t{formatWord(word, guessedCharacters)}\nJe kunt nog {moves} keer raden")
+        print(f"\n\t{formatWord(word, guessedCharacters)}\nJe kunt nog {moves} keer raden\nDe letters die je al geraden hebt zijn: {', '.join(guessedCharacters)}")
         guess = input("Raad een letter of woord: ").lower()
         if len(guess) > 1:
             # als de gok langer is dan 1 letter is het automatisch een gok voor een woord
