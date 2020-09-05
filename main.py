@@ -1,6 +1,7 @@
 import re
 import os
 import random
+import sys
 import character
 
 def wordFilter(word): # laat alleen woorden toe zonder leestekens, en die langer dan 2 letters zijn
@@ -38,6 +39,11 @@ def checkIfWon(word, guessed):
             return False
     return True
 
+def wordFromArgs():
+    for arg in sys.argv:
+        if not arg.endswith('.py'):
+            return arg
+
 def main():
     print("Welkom bij galgje!\nOp het moment worden alle woorden in words/ geladen:", end="\n"*2)
     wordLists = loadWords()
@@ -49,7 +55,7 @@ def main():
     print(f"Er zijn in totaal {len(allWords)} woorden", end="\n"*2)
 
     # hoofdgedeelte
-    word = random.choice(allWords).lower()
+    word = wordFromArgs() or random.choice(allWords).lower()
     moves = 9
     guessedCharacters = set()
     print(f"Ik heb een woord in gedachten van {len(word)} letters", end="\n"*2)
