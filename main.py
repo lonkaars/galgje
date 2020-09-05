@@ -1,8 +1,4 @@
-import re
-import os
-import random
-import sys
-import character
+import re, os, random, sys, character
 
 def wordFilter(word): # laat alleen woorden toe zonder leestekens, en die langer dan 2 letters zijn
     if(len(word) <= 2): return False
