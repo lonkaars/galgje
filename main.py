@@ -32,6 +32,11 @@ def formatWord(word, guessed): # maak van een woord en geraden letters een woord
         out += f"{char} " if char in guessed else "_ "
     return out[:-1]
 
+def checkIfWon(word, guessed):
+    for letter in word:
+        if not letter in guessed:
+            return False
+    return True
 
 def main():
     print("Welkom bij galgje!\nOp het moment worden alle woorden in words/ geladen:", end="\n"*2)
@@ -49,6 +54,10 @@ def main():
     guessedCharacters = set()
     print(f"Ik heb een woord in gedachten van {len(word)} letters", end="\n"*2)
     while moves > 0:
+        if checkIfWon(word, guessedCharacters):
+            endSequence(word, True)
+            break
+
         print(f"\t{formatWord(word, guessedCharacters)}\nJe kunt nog {moves} keer raden")
         if len(guessedCharacters) > 0: print(f"De letters die je al geraden hebt zijn: {', '.join(guessedCharacters)}")
         print(character.character[::-1][moves - 1])
@@ -75,7 +84,8 @@ def main():
             print("Je moet wel een letter of woord gokken")
             continue
         moves -= 1
-    endSequence(word, False)
+    if not checkIfWon(word, guessedCharacters):
+        endSequence(word, False)
 
 if __name__ == "__main__":
     main()
