@@ -23,6 +23,7 @@ def loadWords(): # laad woorden uit de ./words map, filter en voeg ze toe aan ee
 
 def endSequence(word, won):
     if not won:
+        print(character.death)
         print(f"Het woord was {word}")
     else:
         print("Dat was hem weer jongens")
@@ -56,7 +57,7 @@ def main():
 
     # hoofdgedeelte
     word = wordFromArgs() or random.choice(allWords).lower()
-    moves = 9
+    moves = len(character.character)
     guessedCharacters = set()
     print(f"Ik heb een woord in gedachten van {len(word)} letters", end="\n"*2)
     while moves > 0:
