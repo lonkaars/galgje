@@ -3,22 +3,22 @@ import os
 import random
 import character
 
-def loadWords(): # laad woorden uit de ./words map en voeg ze toe aan een dictionary
-    out = dict()
-    for filename in os.listdir("./words"):
-        if filename.endswith(".txt"):
-            out[filename[:-4]] = open(f"./words/{filename}", "r").read().split("\n")
-    return out
-
 def wordFilter(word): # laat alleen woorden toe zonder leestekens, en die langer dan 2 letters zijn
-    if(len(word) <= 1): return False
+    if(len(word) <= 2): return False
     if(len(word) >= 8): return False
     filtered = re.search(r"[0-9\'\"\.\-\s]", word)
     return filtered == None
 
-def getRandomWord(wordList):
-    wordList = list(filter(wordFilter, wordList))
-    return random.choice(wordList)
+def loadWords(): # laad woorden uit de ./words map, filter en voeg ze toe aan een dictionary
+    out = dict()
+    for filename in os.listdir("./words"):
+        if filename.endswith(".txt"):
+            out[filename[:-4]] = list()
+            unfiltered = open(f"./words/{filename}", "r").read().split("\n")
+            for word in unfiltered:
+                if wordFilter(word):
+                    out[filename[:-4]].append(word)
+    return out
 
 def endSequence(word, won):
     if not won:
@@ -49,7 +49,7 @@ def main():
     print(f"Er zijn in totaal {len(allWords)} woorden", end="\n"*2)
 
     # hoofdgedeelte
-    word = getRandomWord(allWords).lower()
+    word = random.choice(allWords).lower()
     moves = 9
     guessedCharacters = set()
     print(f"Ik heb een woord in gedachten van {len(word)} letters", end="\n"*2)
@@ -69,7 +69,11 @@ def main():
                 endSequence(word, True)
                 break
             else:
-                print("Dat is niet mijn woord!")
+                if not wordFilter(guess):
+                    print("Je invoer is ongeldig!")
+                    continue
+                else:
+                    print("Dat is niet mijn woord!")
         elif len(guess) == 1:
             # gok voor een letter
             if guess in guessedCharacters:
