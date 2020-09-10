@@ -68,19 +68,19 @@ def guessWord(guess, word, moves):
         print("Dat is niet mijn woord!")
         return -1
 
-def guessChar(guess, word, guessedCharacters):
-    if guess in guessedCharacters:
+def guessChar(guess, word, guessed):
+    if guess in guessed:
         print(f"De letter {guess} heb je al geraden")
         return 0
     else:
         print(f"De letter {guess} zit{' niet' if not guess in word else ''} in mijn woord")
         return int(guess in word) - 1
 
-def guessHandler(guess, word, moves, guessedCharacters): # stuurt terug hoeveel beurten er af getrokken moeten worden (want continue werkt niet hier)
+def guessHandler(guess, word, moves, guessed): # stuurt terug hoeveel beurten er af getrokken moeten worden (want continue werkt niet hier)
     if len(guess) > 1:
         return guessWord(guess, word, moves)
     elif len(guess) == 1:
-        return guessChar(guess, word, guessedCharacters)
+        return guessChar(guess, word, guessed)
     else:
         print("Je moet wel een letter of woord gokken")
         return 0
@@ -89,30 +89,29 @@ def main():
     argsWord = wordFromArgs()
     print("Welkom bij galgje!")
     allWords = list()
-    if not argsWord:
-        allWords = createWordList()
+    if not argsWord: allWords = createWordList()
 
     # hoofdgedeelte
     word = argsWord or random.choice(allWords).lower()
     moves = len(character.character)
-    guessedCharacters = set()
+    guessed = set()
     print(f"Ik heb een woord in gedachten van {len(word)} letters", end="\n"*2)
     print(word)
 
     while moves > 0:
-        if checkIfWon(word, guessedCharacters):
+        if checkIfWon(word, guessed):
             endSequence(word, True)
             break
 
-        print(f"\t{formatWord(word, guessedCharacters)}\nJe kunt nog {moves} keer raden")
+        print(f"\t{formatWord(word, guessed)}\nJe kunt nog {moves} keer raden")
         # print alleen je geraden letters als je meer dan 0 letters geraden hebt
-        if len(guessedCharacters) > 0: print(f"De dingen die je al geraden hebt zijn: {', '.join(guessedCharacters)}")
+        if len(guessed) > 0: print(f"De dingen die je al geraden hebt zijn: {', '.join(guessed)}")
         print(character.character[::-1][moves - 1]) # print het juiste poppetje uit character.py
         guess = input("Raad een letter of woord: ").lower()
         print("\n"*2) # witregels
-        moves += guessHandler(guess, word, moves, guessedCharacters)
-        guessedCharacters.add(guess)
-    if not checkIfWon(word, guessedCharacters):
+        moves += guessHandler(guess, word, moves, guessed)
+        guessed.add(guess)
+    if not checkIfWon(word, guessed):
         endSequence(word, False)
 
 if __name__ == "__main__":
