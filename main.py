@@ -39,6 +39,7 @@ def checkIfWon(word, guessed):
 def wordFromArgs():
     for arg in sys.argv:
         if not arg.endswith('.py'):
+            if len(arg) != 0: print("\033[2J") # leeg scherm bij aangepast woord
             return arg
 
 def main():
