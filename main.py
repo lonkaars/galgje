@@ -88,6 +88,7 @@ def guessHandler(guess, word, moves, guessed): # stuurt terug hoeveel beurten er
 def main():
     argsWord = wordFromArgs()
     print(color.stylize("Welkom bij galgje!", [color.magenta]))
+    if sys.platform == "win32": print("Dit programma gebruikt ANSI codes om gekleurde tekst te laten zien, gebruik Git Bash of Cygwin op Windows als je kleuren wilt zien")
     allWords = list()
     if not argsWord: allWords = createWordList()
 
