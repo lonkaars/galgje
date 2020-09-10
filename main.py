@@ -1,4 +1,4 @@
-import re, os, random, sys, character
+import re, os, random, sys, character, color
 
 def wordFilter(word): # laat alleen woorden toe zonder leestekens, en die langer dan 2 letters zijn
     if len(word) <= 2: return False
@@ -27,7 +27,7 @@ def endSequence(word, won):
 def formatWord(word, guessed): # maak van een woord en geraden letters een woord met streepjes
     out = ""
     for char in word:
-        out += f"{char if char in guessed else '_'} "
+        out += f"{char if char in guessed else color.stylize('_', [color.faint])} "
     return out[:-1] # haal laatste spatie weg
 
 def checkIfWon(word, guessed):
@@ -49,31 +49,31 @@ def wordFromArgs():
 def createWordList():
     print("Op het moment worden alle woorden in words/ geladen:", end="\n"*2)
     wordLists = loadWords()
-    print(f"{len(wordLists)} woordenlijst(en) gevonden!", end="\n"*2)
+    print(f"{color.stylize(len(wordLists), [color.blue, color.bold])} woordenlijst(en) gevonden!", end="\n"*2)
     allWords = list()
     for wordList in wordLists:
-        print(f"Lijst {wordList} met {len(wordLists[wordList])} woorden")
+        print(f"Lijst {color.stylize(wordList, [color.blue])} met {color.stylize(len(wordLists[wordList]), [color.blue, color.bold])} woorden")
         allWords += wordLists[wordList]
     print(f"Er zijn in totaal {len(allWords)} woorden", end="\n"*2)
     return allWords
 
 def guessWord(guess, word, moves):
-    if not wordFilter(guess):
-        print("Je invoer is ongeldig!")
+    if not wordFilter(guess) or len(word) != len(guess):
+        print(color.stylize("Je invoer is ongeldig!", [color.yellow]))
         return 0
     if word == guess:
         endSequence(word, True)
         return len(moves) * -1 # trek alle beurten af
     else:
-        print("Dat is niet mijn woord!")
+        print(color.stylize("Dat is niet mijn woord!", [color.red]))
         return -1
 
 def guessChar(guess, word, guessed):
     if guess in guessed:
-        print(f"De letter {guess} heb je al geraden")
+        print(color.stylize(f"De letter {guess} heb je al geraden", [color.yellow]))
         return 0
     else:
-        print(f"De letter {guess} zit{' niet' if not guess in word else ''} in mijn woord")
+        print(color.stylize(f"De letter {guess} zit{' niet' if not guess in word else ''} in mijn woord", [color.green if guess in word else color.red]))
         return int(guess in word) - 1
 
 def guessHandler(guess, word, moves, guessed): # stuurt terug hoeveel beurten er af getrokken moeten worden (want continue werkt niet hier)
@@ -82,12 +82,12 @@ def guessHandler(guess, word, moves, guessed): # stuurt terug hoeveel beurten er
     elif len(guess) == 1:
         return guessChar(guess, word, guessed)
     else:
-        print("Je moet wel een letter of woord gokken")
+        print(color.stylize("Je moet wel een letter of woord gokken", [color.yellow]))
         return 0
 
 def main():
     argsWord = wordFromArgs()
-    print("Welkom bij galgje!")
+    print(color.stylize("Welkom bij galgje!", [color.magenta]))
     allWords = list()
     if not argsWord: allWords = createWordList()
 
@@ -95,22 +95,21 @@ def main():
     word = argsWord or random.choice(allWords).lower()
     moves = len(character.character)
     guessed = set()
-    print(f"Ik heb een woord in gedachten van {len(word)} letters", end="\n"*2)
-    print(word)
+    print(f"Ik heb een woord in gedachten van {color.stylize(len(word), [color.magenta, color.bold])} letters", end="\n"*2)
 
     while moves > 0:
         if checkIfWon(word, guessed):
             endSequence(word, True)
             break
 
-        print(f"\t{formatWord(word, guessed)}\nJe kunt nog {moves} keer raden")
+        print(f"\t{formatWord(word, guessed)}\nJe kunt nog {color.stylize(moves, [color.green, color.bold])} keer raden")
         # print alleen je geraden letters als je meer dan 0 letters geraden hebt
         if len(guessed) > 0: print(f"De dingen die je al geraden hebt zijn: {', '.join(guessed)}")
-        print(character.character[::-1][moves - 1]) # print het juiste poppetje uit character.py
-        guess = input("Raad een letter of woord: ").lower()
+        print(color.stylize(character.character[::-1][moves - 1], [color.bold])) # print het juiste poppetje uit character.py
+        guess = input(color.stylize("Raad een letter of woord: ", [color.green, color.bold])).lower()
         print("\n"*2) # witregels
         moves += guessHandler(guess, word, moves, guessed)
-        guessed.add(guess)
+        if len(guess) > 0: guessed.add(guess)
     if not checkIfWon(word, guessed):
         endSequence(word, False)
 
