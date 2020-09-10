@@ -36,24 +36,31 @@ def checkIfWon(word, guessed):
             return False
     return True
 
+def clear():
+    os.system("cls") # windows
+    os.system("clear") # linux + unix
+
 def wordFromArgs():
     for arg in sys.argv:
         if not arg.endswith('.py'):
-            if len(arg) != 0: print("\033[2J") # leeg scherm bij aangepast woord
+            if len(arg) != 0: clear() # leeg scherm bij aangepast woord
             return arg
 
 def main():
-    print("Welkom bij galgje!\nOp het moment worden alle woorden in words/ geladen:", end="\n"*2)
-    wordLists = loadWords()
-    print(f"{len(wordLists)} woordenlijst(en) gevonden!", end="\n"*2)
-    allWords = list()
-    for wordList in wordLists:
-        print(f"Lijst {wordList} met {len(wordLists[wordList])} woorden")
-        allWords += wordLists[wordList]
-    print(f"Er zijn in totaal {len(allWords)} woorden", end="\n"*2)
+    argsWord = wordFromArgs()
+    print("Welkom bij galgje!")
+    if not argsWord:
+        print("Op het moment worden alle woorden in words/ geladen:", end="\n"*2)
+        wordLists = loadWords()
+        print(f"{len(wordLists)} woordenlijst(en) gevonden!", end="\n"*2)
+        allWords = list()
+        for wordList in wordLists:
+            print(f"Lijst {wordList} met {len(wordLists[wordList])} woorden")
+            allWords += wordLists[wordList]
+        print(f"Er zijn in totaal {len(allWords)} woorden", end="\n"*2)
 
     # hoofdgedeelte
-    word = wordFromArgs() or random.choice(allWords).lower()
+    word = argsWord or random.choice(allWords).lower()
     moves = len(character.character)
     guessedCharacters = set()
     print(f"Ik heb een woord in gedachten van {len(word)} letters", end="\n"*2)
