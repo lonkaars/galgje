@@ -27,7 +27,7 @@ def endSequence(word, won):
 def formatWord(word, guessed): # maak van een woord en geraden letters een woord met streepjes
     out = ""
     for char in word:
-        out += f"{char} " if char in guessed else "_ "
+        out += f"{char if char in guessed else '_'} "
     return out[:-1]
 
 def checkIfWon(word, guessed):
