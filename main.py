@@ -87,17 +87,7 @@ def guessHandler(guess, word, moves, guessed): # stuurt terug hoeveel beurten er
         print(color.stylize("Je moet wel een letter of woord gokken", [color.yellow], colorEnabled))
         return 0
 
-def main():
-    args = parseArgs()
-    if args.word: clear()
-    print(color.stylize("Welkom bij galgje!", [color.magenta], colorEnabled))
-    if sys.platform == "win32": print("Dit programma gebruikt ANSI codes om gekleurde tekst te laten zien, gebruik Git Bash of Cygwin op Windows als je kleuren wilt zien")
-    allWords = list()
-    if not args.word: allWords = createWordList()
-
-    # hoofdgedeelte
-    word = args.word or random.choice(allWords)
-    word = word.lower()
+def game(word):
     moves = len(character.character)
     guessed = set()
     print(f"Ik heb een woord in gedachten van {color.stylize(len(word), [color.magenta, color.bold], colorEnabled)} letters", end="\n"*2)
@@ -117,6 +107,17 @@ def main():
         if len(guess) > 0: guessed.add(guess)
     if not checkIfWon(word, guessed):
         endSequence(word, False)
+
+def main():
+    args = parseArgs()
+    if args.word: clear()
+    print(color.stylize("Welkom bij galgje!", [color.magenta], colorEnabled))
+    if sys.platform == "win32": print("Dit programma gebruikt ANSI codes om gekleurde tekst te laten zien, gebruik Git Bash of Cygwin op Windows als je kleuren wilt zien")
+    allWords = list()
+    if not args.word: allWords = createWordList()
+    word = args.word or random.choice(allWords)
+    word = word.lower()
+    game(word)
 
 if __name__ == "__main__":
     main()
