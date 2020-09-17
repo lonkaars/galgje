@@ -23,6 +23,11 @@ underline = 4
 
 reset = 0
 
-def stylize(word, styles, colorEnabled):
+def setColorEnabled(color):
+    print(f"setting color to {color}")
+    global colorEnabled
+    colorEnabled = color
+
+def stylize(word, styles):
     return f"\033[{';'.join(list(map(lambda int: str(int), styles)))}m{word}\033[{reset}m" if colorEnabled else word
 
