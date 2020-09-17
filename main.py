@@ -1,8 +1,11 @@
 import re, os, random, sys, character, color, argparse
 
+def parseBool(string):
+    return bool(string.lower() in ("true", "1"))
+
 def parseArgs():
     parser = argparse.ArgumentParser(description="Galje in python geschreven door Loek Le Blansch")
-    parser.add_argument("--color", type=bool, help="Of kleuren aan staan (standaard uit op Windows)")
+    parser.add_argument("--color", type=parseBool, help="Of kleuren aan staan (standaard uit op Windows)")
     parser.add_argument("--word", help="Een aangepast woord om galgje mee te spelen")
     return parser.parse_args()
 
@@ -109,9 +112,10 @@ def game(word):
 def main():
     args = parseArgs()
     if args.word: clear()
+    print(args.color)
     color.setColorEnabled(args.color if args.color != None else sys.platform != "win32")
     print(color.stylize("Welkom bij galgje!", [color.magenta]))
-    if sys.platform == "win32": print("Dit programma gebruikt ANSI codes om gekleurde tekst te laten zien, gebruik Git Bash of Cygwin op Windows als je kleuren wilt zien")
+    if sys.platform == "win32": print("Dit programma gebruikt ANSI codes om gekleurde tekst te laten zien, gebruik de --color true vlag om ze aan te forceren op een terminal die ze ondersteunt")
     allWords = list()
     if not args.word: allWords = createWordList() # laad alleen de woordenlijst als er geen aangepast woord is gegeven
     word = args.word or random.choice(allWords)

@@ -23,9 +23,9 @@ underline = 4
 
 reset = 0
 
-colorEnabled = bool()
 def setColorEnabled(color):
     print(f"setting color to {color}")
+    global colorEnabled
     colorEnabled = color
 
 def stylize(word, styles):
