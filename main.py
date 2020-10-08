@@ -13,7 +13,7 @@ def wordFilter(word): # laat alleen woorden toe zonder leestekens, en die langer
     if len(word) <= 2: return "word_too_short"
     if len(word) >= 8: return "word_too_long"
     filtered = re.search(r"[0-9\'\".\-\s]", word)
-    return "word_contains_invalid_characters" if filtered == None else True
+    return "word_contains_invalid_characters" if filtered != None else True
 
 def loadWords(): # laad woorden uit de ./words map, filter en voeg ze toe aan een dictionary
     out = dict()
@@ -62,16 +62,18 @@ def createWordList():
 
 def guessWord(guess, word, moves):
     filteredWord = wordFilter(guess)
-    if filteredWord != True:
+    if filteredWord != True or len(word) != len(guess):
+        error = filteredWord
         errorMessages = {
                 "word_too_short": "Je woord is te kort!",
                 "word_too_long": "Je woord is te lang!",
                 "word_contains_invalid_characters": "Je woord bevat ongeldige tekens!"
                 }
-        print(color.stylize(errorMessages.get(filteredWord), [color.yellow]))
+        if len(guess) < len(word) and error == True: error = "word_too_short"
+        elif len(guess) > len(word) and error == True: error = "word_too_long"
+
+        print(color.stylize(errorMessages.get(error), [color.yellow]))
         return 0
-    else if len(word) != len(guess):
-        error = "word_too_short" if len(guess) < len(word) else if len(guess) > len(word) "word_too_long" else None
     if word == guess:
         endSequence(word, True)
         return len(moves) * -1 # trek alle beurten af
