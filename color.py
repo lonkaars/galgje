@@ -24,7 +24,6 @@ underline = 4
 reset = 0
 
 def setColorEnabled(color):
-    print(f"setting color to {color}")
     global colorEnabled
     colorEnabled = color
 
