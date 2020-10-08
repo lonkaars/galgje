@@ -10,10 +10,10 @@ def parseArgs():
     return parser.parse_args()
 
 def wordFilter(word): # laat alleen woorden toe zonder leestekens, en die langer dan 2 letters zijn
-    if len(word) <= 2: return False
-    if len(word) >= 8: return False
+    if len(word) <= 2: return "word_too_short"
+    if len(word) >= 8: return "word_too_long"
     filtered = re.search(r"[0-9\'\".\-\s]", word)
-    return filtered == None
+    return "word_contains_invalid_characters" if filtered != None else True
 
 def loadWords(): # laad woorden uit de ./words map, filter en voeg ze toe aan een dictionary
     out = dict()
@@ -22,7 +22,7 @@ def loadWords(): # laad woorden uit de ./words map, filter en voeg ze toe aan ee
             out[filename[:-4]] = list()
             unfiltered = open(f"./words/{filename}", "r").read().split("\n")
             for word in unfiltered:
-                if wordFilter(word):
+                if wordFilter(word) == True:
                     out[filename[:-4]].append(word)
     return out
 
@@ -61,8 +61,18 @@ def createWordList():
     return allWords
 
 def guessWord(guess, word, moves):
-    if not wordFilter(guess) or len(word) != len(guess):
-        print(color.stylize("Je invoer is ongeldig!", [color.yellow]))
+    filteredWord = wordFilter(guess)
+    if filteredWord != True or len(word) != len(guess):
+        error = filteredWord
+        errorMessages = {
+                "word_too_short": "Je woord is te kort!",
+                "word_too_long": "Je woord is te lang!",
+                "word_contains_invalid_characters": "Je woord bevat ongeldige tekens!"
+                }
+        if len(guess) < len(word) and error == True: error = "word_too_short"
+        elif len(guess) > len(word) and error == True: error = "word_too_long"
+
+        print(color.stylize(errorMessages.get(error), [color.yellow]))
         return 0
     if word == guess:
         endSequence(word, True)
@@ -112,7 +122,6 @@ def game(word):
 def main():
     args = parseArgs()
     if args.word: clear()
-    print(args.color)
     color.setColorEnabled(args.color if args.color != None else sys.platform != "win32")
     print(color.stylize("Welkom bij galgje!", [color.magenta]))
     if sys.platform == "win32": print("Dit programma gebruikt ANSI codes om gekleurde tekst te laten zien, gebruik de --color true vlag om ze aan te forceren op een terminal die ze ondersteunt")
