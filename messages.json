@@ -1,0 +1,48 @@
+{
+	"ERR_WORD_INVALID": [
+		"Er zitten ongeldige tekens in je woord!",
+		"Jouw woord bevat ongeldige tekens!",
+		"Er mogen geen leestekens in je woord zitten!"
+	],
+	"ERR_WORD_TOO_SHORT": [
+		"Jouw geraden woord is te kort!",
+		"Probeer een langer woord te raden!"
+	],
+	"ERR_WORD_TOO_LONG": [
+		"Jouw geraden woord is te lang!",
+		"Probeer een korter woord te raden!"
+	],
+	"ERR_NO_WORD_GUESSED": [
+		"Je moet wel een woord gokken!",
+		"Probeer wat in te voeren!",
+		"Als je geen zin meer hebt kun je gewoon op control c+drukken",
+		"Ben je nog aan het spelen?"
+	],
+	"LOST_MESSAGE": [
+		"Volgende keer beter!",
+		"Probeer misschien --word <hier je woord> toe te voegen aan het commando als je het te lastig vindt!",
+		"Misschien is dit gewoon een heel raar woord dat je nog nooit gezien hebt, ik bedenk ze niet!",
+		"Morgen weer nieuwe kansen, nieuwe prijzen!",
+		"Helaas pindakaas!"
+	],
+	"GAME_END": [
+		"dat was hem weer jongens",
+		"Bedankt voor het spelen!",
+		"Doei!"
+	],
+	"GAME_START": [
+		"Welkom bij galgje!",
+		"Tijd voor een potje galgje",
+		"Ik heb en lekker lastig woord voor je uitgekozen"
+	],
+	"LOADING_WORDS": [
+		"Op het moment worden alle woorden in words/ geladen...",
+		"Woordenlijsten aan het laden...",
+		"Alle woordenlijsten aan het importeren en filteren..."
+	],
+	"GUESS_PROMPT": [
+		"Raad een letter of woord:",
+		"Doe eens een gok:",
+		"Raad eens:"
+	]
+}
