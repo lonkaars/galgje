@@ -1,4 +1,4 @@
-import re, os, random, sys, character, color, argparse
+import re, os, random, sys, character, color, argparse, messages
 
 def parseBool(string):
     return bool(string.lower() in ("true", "1"))
@@ -30,8 +30,9 @@ def endSequence(word, won):
     print(f"Het woord was {word}")
     if not won:
         print(character.death)
+        print(messages.randomMessage("LOST_MESSAGE"))
     else:
-        print("Dat was hem weer jongens")
+        print(messages.randomMessage("GAME_END"))
 
 def formatWord(word, guessed): # maak van een woord en geraden letters een woord met streepjes
     out = ""
@@ -50,7 +51,7 @@ def clear():
     os.system("clear") # linux + unix
 
 def createWordList():
-    print("Op het moment worden alle woorden in words/ geladen:", end="\n"*2)
+    print(messages.randomMessage("LOADING_WORDS"), end="\n"*2)
     wordLists = loadWords()
     print(f"{color.stylize(len(wordLists), [color.blue, color.bold])} woordenlijst(en) gevonden!", end="\n"*2)
     allWords = list()
@@ -65,9 +66,9 @@ def guessWord(guess, word, moves):
     if filteredWord != True or len(word) != len(guess):
         error = filteredWord
         errorMessages = {
-                "word_too_short": "Je woord is te kort!",
-                "word_too_long": "Je woord is te lang!",
-                "word_contains_invalid_characters": "Je woord bevat ongeldige tekens!"
+                "word_too_short": messages.randomMessage("ERR_WORD_TOO_SHORT"),
+                "word_too_long": messages.randomMessage("ERR_WORD_TOO_LONG"),
+                "word_contains_invalid_characters": messages.randomMessage("ERR_WORD_INVALID")
                 }
         if len(guess) < len(word) and error == True: error = "word_too_short"
         elif len(guess) > len(word) and error == True: error = "word_too_long"
@@ -95,7 +96,7 @@ def guessHandler(guess, word, moves, guessed): # stuurt terug hoeveel beurten er
     elif len(guess) == 1:
         return guessChar(guess, word, guessed)
     else:
-        print(color.stylize("Je moet wel een letter of woord gokken", [color.yellow]))
+        print(color.stylize(messages.randomMessage("ERR_NO_WORD_GUESSED"), [color.yellow]))
         return 0
 
 def game(word):
@@ -112,7 +113,7 @@ def game(word):
         # print alleen je geraden letters als je meer dan 0 letters geraden hebt
         if len(guessed) > 0: print(f"De dingen die je al geraden hebt zijn: {', '.join(guessed)}")
         print(color.stylize(character.character[::-1][moves - 1], [color.bold])) # print het juiste poppetje uit character.py
-        guess = input(color.stylize("Raad een letter of woord: ", [color.green, color.bold])).lower()
+        guess = input(color.stylize(messages.randomMessage("GUESS_PROMPT") + " ", [color.green, color.bold])).lower()
         print("\n"*2) # witregels
         moves += guessHandler(guess, word, moves, guessed)
         if len(guess) > 0: guessed.add(guess)
@@ -123,7 +124,7 @@ def main():
     args = parseArgs()
     if args.word: clear()
     color.setColorEnabled(args.color if args.color != None else sys.platform != "win32")
-    print(color.stylize("Welkom bij galgje!", [color.magenta]))
+    print(color.stylize(messages.randomMessage("GAME_START"), [color.magenta]))
     if sys.platform == "win32": print("Dit programma gebruikt ANSI codes om gekleurde tekst te laten zien, gebruik de --color true vlag om ze aan te forceren op een terminal die ze ondersteunt")
     allWords = list()
     if not args.word: allWords = createWordList() # laad alleen de woordenlijst als er geen aangepast woord is gegeven
