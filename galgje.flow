@@ -1,0 +1,365 @@
+{
+    "_Easter_Egg": "Well done! You've opened the file in a texteditor! This is a JSON-file and it is used a lot throughout the internet to represent data. The best part is, is that it is quite humanreadable too! You can even edit the values right now and see how they've changed when you reupload the file. Don't forget to brag about your findings and have a nice day!",
+    "model": {
+        "flowchartName": "Galgje",
+        "tree": {
+            "id": 0,
+            "basicTree": {
+                "basicTreeType": "Start",
+                "child": {
+                    "id": 20,
+                    "basicTree": {
+                        "basicTreeType": "Statement",
+                        "content": "Kijk of de gebruiker zelf een woord heeft om het spel mee te spelen",
+                        "child": {
+                            "id": 40,
+                            "basicTree": {
+                                "basicTreeType": "If",
+                                "content": "Gebruiker heeft woord geleverd",
+                                "child1": {
+                                    "id": 50,
+                                    "basicTree": {
+                                        "basicTreeType": "Statement",
+                                        "content": "Laad de woordenlijsten in de map words/",
+                                        "child": {
+                                            "id": 80,
+                                            "basicTree": {
+                                                "basicTreeType": "Statement",
+                                                "content": "Kies een willekeurig woord",
+                                                "child": {
+                                                    "id": 51,
+                                                    "basicTree": {
+                                                        "basicTreeType": "Void"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "child2": {
+                                    "id": 52,
+                                    "basicTree": {
+                                        "basicTreeType": "Statement",
+                                        "content": "Start het spel met het aangepaste woord",
+                                        "child": {
+                                            "id": 53,
+                                            "basicTree": {
+                                                "basicTreeType": "Void"
+                                            }
+                                        }
+                                    }
+                                },
+                                "child3": {
+                                    "id": 100,
+                                    "basicTree": {
+                                        "basicTreeType": "Statement",
+                                        "content": "Stel het aantal zetten in op het aantal beelden van het galgje",
+                                        "child": {
+                                            "id": 120,
+                                            "basicTree": {
+                                                "basicTreeType": "Statement",
+                                                "content": "Maak een variabele aan voor de al geraden woorden/letters",
+                                                "child": {
+                                                    "id": 140,
+                                                    "basicTree": {
+                                                        "basicTreeType": "While",
+                                                        "content": "Aantal zetten > 0",
+                                                        "child1": {
+                                                            "id": 150,
+                                                            "basicTree": {
+                                                                "basicTreeType": "If",
+                                                                "content": "Kijk of alle letters in het woord al geraden zijn",
+                                                                "child1": {
+                                                                    "id": 220,
+                                                                    "basicTree": {
+                                                                        "basicTreeType": "Statement",
+                                                                        "content": "Print het aantal zetten dat de gebruiker nog heeft",
+                                                                        "child": {
+                                                                            "id": 250,
+                                                                            "basicTree": {
+                                                                                "basicTreeType": "Statement",
+                                                                                "content": "Print de geraden letters/woorden als de lijst met geraden woorden langer is dan 0",
+                                                                                "child": {
+                                                                                    "id": 270,
+                                                                                    "basicTree": {
+                                                                                        "basicTreeType": "Statement",
+                                                                                        "content": "Print het poppetje voor de huidige beurt",
+                                                                                        "child": {
+                                                                                            "id": 290,
+                                                                                            "basicTree": {
+                                                                                                "basicTreeType": "Statement",
+                                                                                                "content": "Vraag de gebruiker om een woord",
+                                                                                                "child": {
+                                                                                                    "id": 350,
+                                                                                                    "basicTree": {
+                                                                                                        "basicTreeType": "If",
+                                                                                                        "content": "Lengte gok > 1",
+                                                                                                        "child1": {
+                                                                                                            "id": 360,
+                                                                                                            "basicTree": {
+                                                                                                                "basicTreeType": "If",
+                                                                                                                "content": "Lengte gok == 1",
+                                                                                                                "child1": {
+                                                                                                                    "id": 390,
+                                                                                                                    "basicTree": {
+                                                                                                                        "basicTreeType": "Statement",
+                                                                                                                        "content": "Print een foutmelding",
+                                                                                                                        "child": {
+                                                                                                                            "id": 670,
+                                                                                                                            "basicTree": {
+                                                                                                                                "basicTreeType": "Statement",
+                                                                                                                                "content": "Trek geen beurt af",
+                                                                                                                                "child": {
+                                                                                                                                    "id": 391,
+                                                                                                                                    "basicTree": {
+                                                                                                                                        "basicTreeType": "Void"
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                },
+                                                                                                                "child2": {
+                                                                                                                    "id": 392,
+                                                                                                                    "basicTree": {
+                                                                                                                        "basicTreeType": "If",
+                                                                                                                        "content": "Letter is al geraden",
+                                                                                                                        "child1": {
+                                                                                                                            "id": 590,
+                                                                                                                            "basicTree": {
+                                                                                                                                "basicTreeType": "If",
+                                                                                                                                "content": "Letter in woord",
+                                                                                                                                "child1": {
+                                                                                                                                    "id": 600,
+                                                                                                                                    "basicTree": {
+                                                                                                                                        "basicTreeType": "Statement",
+                                                                                                                                        "content": "Print boos bericht",
+                                                                                                                                        "child": {
+                                                                                                                                            "id": 650,
+                                                                                                                                            "basicTree": {
+                                                                                                                                                "basicTreeType": "Statement",
+                                                                                                                                                "content": "Trek 1 beurt af",
+                                                                                                                                                "child": {
+                                                                                                                                                    "id": 601,
+                                                                                                                                                    "basicTree": {
+                                                                                                                                                        "basicTreeType": "Void"
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                },
+                                                                                                                                "child2": {
+                                                                                                                                    "id": 602,
+                                                                                                                                    "basicTree": {
+                                                                                                                                        "basicTreeType": "Statement",
+                                                                                                                                        "content": "Print blij bericht",
+                                                                                                                                        "child": {
+                                                                                                                                            "id": 620,
+                                                                                                                                            "basicTree": {
+                                                                                                                                                "basicTreeType": "Statement",
+                                                                                                                                                "content": "Trek geen beurt af",
+                                                                                                                                                "child": {
+                                                                                                                                                    "id": 603,
+                                                                                                                                                    "basicTree": {
+                                                                                                                                                        "basicTreeType": "Void"
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                },
+                                                                                                                                "child3": {
+                                                                                                                                    "id": 531,
+                                                                                                                                    "basicTree": {
+                                                                                                                                        "basicTreeType": "Void"
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        },
+                                                                                                                        "child2": {
+                                                                                                                            "id": 532,
+                                                                                                                            "basicTree": {
+                                                                                                                                "basicTreeType": "Statement",
+                                                                                                                                "content": "Print foutmelding",
+                                                                                                                                "child": {
+                                                                                                                                    "id": 550,
+                                                                                                                                    "basicTree": {
+                                                                                                                                        "basicTreeType": "Statement",
+                                                                                                                                        "content": "Trek geen beurt af",
+                                                                                                                                        "child": {
+                                                                                                                                            "id": 533,
+                                                                                                                                            "basicTree": {
+                                                                                                                                                "basicTreeType": "Void"
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        },
+                                                                                                                        "child3": {
+                                                                                                                            "id": 393,
+                                                                                                                            "basicTree": {
+                                                                                                                                "basicTreeType": "Void"
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                },
+                                                                                                                "child3": {
+                                                                                                                    "id": 361,
+                                                                                                                    "basicTree": {
+                                                                                                                        "basicTreeType": "Void"
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                        },
+                                                                                                        "child2": {
+                                                                                                            "id": 370,
+                                                                                                            "basicTree": {
+                                                                                                                "basicTreeType": "Statement",
+                                                                                                                "content": "Kijk of het woord niet te kort is, te lang is of ongeldige tekens bevat, en print een bijbehorende foutmelding voor elke fout",
+                                                                                                                "child": {
+                                                                                                                    "id": 450,
+                                                                                                                    "basicTree": {
+                                                                                                                        "basicTreeType": "If",
+                                                                                                                        "content": "woord is geraden",
+                                                                                                                        "child1": {
+                                                                                                                            "id": 460,
+                                                                                                                            "basicTree": {
+                                                                                                                                "basicTreeType": "Statement",
+                                                                                                                                "content": "Print foutmelding",
+                                                                                                                                "child": {
+                                                                                                                                    "id": 510,
+                                                                                                                                    "basicTree": {
+                                                                                                                                        "basicTreeType": "Statement",
+                                                                                                                                        "content": "Trek 1 beurt af",
+                                                                                                                                        "child": {
+                                                                                                                                            "id": 461,
+                                                                                                                                            "basicTree": {
+                                                                                                                                                "basicTreeType": "Void"
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        },
+                                                                                                                        "child2": {
+                                                                                                                            "id": 462,
+                                                                                                                            "basicTree": {
+                                                                                                                                "basicTreeType": "Statement",
+                                                                                                                                "content": "Spring uit de while loop",
+                                                                                                                                "child": {
+                                                                                                                                    "id": 480,
+                                                                                                                                    "basicTree": {
+                                                                                                                                        "basicTreeType": "Statement",
+                                                                                                                                        "content": "Trek alle beurten af",
+                                                                                                                                        "child": {
+                                                                                                                                            "id": 463,
+                                                                                                                                            "basicTree": {
+                                                                                                                                                "basicTreeType": "Void"
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        },
+                                                                                                                        "child3": {
+                                                                                                                            "id": 363,
+                                                                                                                            "basicTree": {
+                                                                                                                                "basicTreeType": "Void"
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                        },
+                                                                                                        "child3": {
+                                                                                                            "id": 310,
+                                                                                                            "basicTree": {
+                                                                                                                "basicTreeType": "Statement",
+                                                                                                                "content": "Voeg de gok toe aan de lijst met geraden woorden/letters als de gok langer is dan 0",
+                                                                                                                "child": {
+                                                                                                                    "id": 221,
+                                                                                                                    "basicTree": {
+                                                                                                                        "basicTreeType": "Void"
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "child2": {
+                                                                    "id": 222,
+                                                                    "basicTree": {
+                                                                        "basicTreeType": "Statement",
+                                                                        "content": "Spring uit de while loop",
+                                                                        "child": {
+                                                                            "id": 223,
+                                                                            "basicTree": {
+                                                                                "basicTreeType": "Void"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "child3": {
+                                                                    "id": 151,
+                                                                    "basicTree": {
+                                                                        "basicTreeType": "Void"
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "child2": {
+                                                            "id": 160,
+                                                            "basicTree": {
+                                                                "basicTreeType": "Statement",
+                                                                "content": "Print het woord",
+                                                                "child": {
+                                                                    "id": 180,
+                                                                    "basicTree": {
+                                                                        "basicTreeType": "Statement",
+                                                                        "content": "Print een bericht dat aangepast is voor als je wint of verliest",
+                                                                        "child": {
+                                                                            "id": 1,
+                                                                            "basicTree": {
+                                                                                "basicTreeType": "End"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "currentId": 690,
+        "highlightedBox": "Nothing",
+        "precondition": {
+            "nodeType": "PreConditionNode",
+            "content": "",
+            "visible": false
+        },
+        "postcondition": {
+            "nodeType": "PostConditionNode",
+            "content": "",
+            "visible": false
+        }
+    }
+}
