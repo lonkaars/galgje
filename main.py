@@ -1,7 +1,9 @@
 import re, os, random, sys, character, color, argparse, messages
 
+# character, color en messages zijn andere bestanden in dit project
+
 def parseBool(string):
-    return bool(string.lower() in ("true", "1"))
+    return bool(string.lower() in ("true", "1")) # deze functie wordt gebruikt om te kijken of de --color vlag True moet zijn
 
 def parseArgs():
     parser = argparse.ArgumentParser(description="Galje in python geschreven door Loek Le Blansch")
@@ -13,17 +15,17 @@ def parseArgs():
 def wordFilter(word):
     if len(word) <= 2: return "word_too_short"
     if len(word) >= 8: return "word_too_long"
-    filtered = re.search(r"[0-9\'\".\-\s]", word)
-    return "word_contains_invalid_characters" if filtered != None else True
+    filtered = re.search(r"[0-9\'\".\-\s]", word) # regex met character set om te controleren op niet toegestane tekens in een woord (in dit geval leestekens)
+    return "word_contains_invalid_characters" if filtered != None else True # stuur een string terug met de foutmelding, of True als de string toegestaan is
 
 # laad woorden uit de ./words map, filter en voeg ze toe aan een dictionary
 def loadWords():
-    out = dict()
-    for filename in os.listdir("./words"):
-        if filename.endswith(".txt"):
-            out[filename[:-4]] = list()
-            unfiltered = open(f"./words/{filename}", "r").read().split("\n")
-            for word in unfiltered:
+    out = dict() # maak een dictionary voor de woorden
+    for filename in os.listdir("./words"): # voor elk bestand in de words/ map
+        if filename.endswith(".txt"): # negeer alle bestanden die niet eindigen met .txt
+            out[filename[:-4]] = list() # voeg een key toe aan de out dictionary met de bestandsnaam zonder .txt er achter
+            unfiltered = open(f"./words/{filename}", "r").read().split("\n") # lees de woordenlijst
+            for word in unfiltered: # filter de woorden in de woordenlijst
                 if wordFilter(word) == True:
                     out[filename[:-4]].append(word)
     return out
@@ -67,6 +69,7 @@ def createWordList():
 def guessWord(guess, word, moves):
     filteredWord = wordFilter(guess)
     if filteredWord != True or len(word) != len(guess):
+        # Deze code zet de foutmeldingen van wordFilter() om naar strings die uitleggen wat je fout hebt gedaan
         error = filteredWord
         errorMessages = {
                 "word_too_short": messages.randomMessage("ERR_WORD_TOO_SHORT"),
@@ -105,17 +108,16 @@ def guessHandler(guess, word, moves, guessed):
 
 def game(word):
     moves = len(character.character)
-    guessed = set()
+    guessed = set() # hier gebruik ik een set zodat ik zelf geen rekening hoef te houden met dubbele gokken
     print(f"Ik heb een woord in gedachten van {color.stylize(len(word), [color.magenta, color.bold])} letters", end="\n"*2)
 
     while moves > 0:
         if checkIfWon(word, guessed):
             endSequence(word, True)
-            break
+            break # spring uit de while loop
 
         print(f"\t{formatWord(word, guessed)}\nJe kunt nog {color.stylize(moves, [color.green, color.bold])} keer raden")
-        # print alleen je geraden letters als je meer dan 0 letters geraden hebt
-        if len(guessed) > 0: print(f"De dingen die je al geraden hebt zijn: {', '.join(guessed)}")
+        if len(guessed) > 0: print(f"De dingen die je al geraden hebt zijn: {', '.join(guessed)}") # print alleen je geraden letters als je meer dan 0 letters geraden hebt
         print(color.stylize(character.character[::-1][moves - 1], [color.bold])) # print het juiste poppetje uit character.py
         guess = input(color.stylize(messages.randomMessage("GUESS_PROMPT") + " ", [color.green, color.bold])).lower()
         print("\n"*2) # witregels
@@ -127,12 +129,12 @@ def game(word):
 def main():
     args = parseArgs()
     if args.word: clear()
-    color.setColorEnabled(args.color if args.color != None else sys.platform != "win32")
+    color.setColorEnabled(args.color if args.color != None else sys.platform != "win32") # zet kleuren automatisch uit op Windows
     print(color.stylize(messages.randomMessage("GAME_START"), [color.magenta]))
     if sys.platform == "win32": print("Dit programma gebruikt ANSI codes om gekleurde tekst te laten zien, gebruik de --color true vlag om ze aan te forceren op een terminal die ze ondersteunt")
     allWords = list()
     if not args.word: allWords = createWordList() # laad alleen de woordenlijst als er geen aangepast woord is gegeven
-    word = args.word or random.choice(allWords)
+    word = args.word or random.choice(allWords) # or zorgt er hier voor dat word niet overschreven wordt door random.choice als args.word geen lege string is
     word = word.lower() # zorg dat het woord geen hoofdletters bevat
     game(word)
 
