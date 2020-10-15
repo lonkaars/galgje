@@ -9,13 +9,15 @@ def parseArgs():
     parser.add_argument("--word", help="Een aangepast woord om galgje mee te spelen")
     return parser.parse_args()
 
-def wordFilter(word): # laat alleen woorden toe zonder leestekens, en die langer dan 2 letters zijn
+# laat alleen woorden toe zonder leestekens, en die langer dan 2 letters zijn
+def wordFilter(word):
     if len(word) <= 2: return "word_too_short"
     if len(word) >= 8: return "word_too_long"
     filtered = re.search(r"[0-9\'\".\-\s]", word)
     return "word_contains_invalid_characters" if filtered != None else True
 
-def loadWords(): # laad woorden uit de ./words map, filter en voeg ze toe aan een dictionary
+# laad woorden uit de ./words map, filter en voeg ze toe aan een dictionary
+def loadWords():
     out = dict()
     for filename in os.listdir("./words"):
         if filename.endswith(".txt"):
@@ -34,7 +36,8 @@ def endSequence(word, won):
     else:
         print(messages.randomMessage("GAME_END"))
 
-def formatWord(word, guessed): # maak van een woord en geraden letters een woord met streepjes
+# maak van een woord en geraden letters een woord met streepjes
+def formatWord(word, guessed):
     out = ""
     for char in word:
         out += f"{char if char in guessed else color.stylize('_', [color.faint])} "
@@ -90,7 +93,8 @@ def guessChar(guess, word, guessed):
         print(color.stylize(f"De letter {guess} zit{' niet' if not guess in word else ''} in mijn woord", [color.green if guess in word else color.red]))
         return int(guess in word) - 1
 
-def guessHandler(guess, word, moves, guessed): # stuurt terug hoeveel beurten er af getrokken moeten worden (want continue werkt niet hier)
+# stuurt terug hoeveel beurten er af getrokken moeten worden (want continue werkt niet hier)
+def guessHandler(guess, word, moves, guessed):
     if len(guess) > 1:
         return guessWord(guess, word, moves)
     elif len(guess) == 1:
